@@ -1,9 +1,14 @@
-import React from 'react';
-import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FaCheckCircle, FaTimesCircle, FaImage } from 'react-icons/fa';
 import StoreCard from '../StoreCard/StoreCard';
 import './ProductDetail.css';
 
+// API URL - adjust as needed
+const API_URL = 'http://127.0.0.1:8000';
+
 const ProductDetail = ({ product, comparison }) => {
+  const [imgError, setImgError] = useState(false);
+  
   if (!product) return null;
 
   // Find the best (lowest) price
@@ -15,15 +20,44 @@ const ProductDetail = ({ product, comparison }) => {
   // Sort prices from lowest to highest
   const sortedPrices = [...product.prices].sort((a, b) => a.price - b.price);
 
+  // Get the appropriate image URL based on the source
+  const getProxyImageUrl = (url) => {
+    if (!url) return 'https://via.placeholder.com/400x300';
+    
+    if (url.includes('anhoch.com')) {
+      const encodedUrl = encodeURIComponent(url);
+      return `${API_URL}/proxy-image/?url=${encodedUrl}`;
+    }
+    
+    return url;
+  };
+
+  // Apply the proxy if needed
+  const imageUrl = getProxyImageUrl(product.image_url);
+
+  // Handle image loading errors
+  const handleImageError = () => {
+    console.error(`Failed to load image: ${imageUrl}`);
+    setImgError(true);
+  };
+
   return (
     <div className="product-detail">
       <div className="product-main">
         <div className="product-image-container">
-          <img 
-            src={product.image_url || 'https://via.placeholder.com/400x300'} 
-            alt={product.name} 
-            className="product-image"
-          />
+          {!imgError ? (
+            <img 
+              src={imageUrl} 
+              alt={product.name} 
+              className="product-image"
+              onError={handleImageError}
+            />
+          ) : (
+            <div className="image-placeholder detail-placeholder">
+              <FaImage size={64} color="#ccc" />
+              <div>{product.brand || ''} {product.model || product.name || 'Product'}</div>
+            </div>
+          )}
         </div>
         
         <div className="product-info-container">
@@ -123,4 +157,4 @@ const ProductDetail = ({ product, comparison }) => {
   );
 };
 
-export default ProductDetail;
+export default ProductDetail

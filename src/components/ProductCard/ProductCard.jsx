@@ -1,25 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaStore, FaTag } from 'react-icons/fa';
+import { FaStore, FaTag, FaImage } from 'react-icons/fa';
 import './ProductCard.css';
 
+// API URL - adjust as needed
+const API_URL = 'http://127.0.0.1:8000';
+
 const ProductCard = ({ product }) => {
+  const [imgError, setImgError] = useState(false);
+
   // Find the best (lowest) price
-  const bestPrice = product.prices.length > 0 
+  const bestPrice = product.prices && product.prices.length > 0 
     ? product.prices.reduce((min, price) => price.price < min.price ? price : min, product.prices[0])
     : null;
 
   // Count available stores
-  const storeCount = product.prices.length;
+  const storeCount = product.prices ? product.prices.length : 0;
 
-  // Get first store with image available (or placeholder)
-  const imageUrl = product.image_url || (product.prices.length > 0 && product.prices[0].store.imageUrl) || 'https://via.placeholder.com/300x200';
+  // Get original image URL
+  const originalImageUrl = product.image_url || 
+    (product.prices && product.prices.length > 0 && product.prices[0].store && product.prices[0].store.imageUrl) || 
+    'https://via.placeholder.com/300x200';
+
+  // Get the appropriate image URL based on the source
+  const getProxyImageUrl = (url) => {
+    if (!url) return 'https://via.placeholder.com/300x200';
+    
+    if (url.includes('anhoch.com')) {
+      const encodedUrl = encodeURIComponent(url);
+      return `${API_URL}/proxy-image/?url=${encodedUrl}`;
+    }
+    
+    return url;
+  };
+
+  // Apply the proxy if needed
+  const imageUrl = getProxyImageUrl(originalImageUrl);
+
+  // Handle image loading errors
+  const handleImageError = () => {
+    console.error(`Failed to load image: ${imageUrl}`);
+    setImgError(true);
+  };
 
   return (
     <div className="product-card card">
       <Link to={`/product/${product.id}`} className="product-link">
         <div className="product-image">
-          <img src={imageUrl} alt={product.name} />
+          {!imgError ? (
+            <img 
+              src={imageUrl} 
+              alt={product.name || 'Product image'}
+              onError={handleImageError}
+            />
+          ) : (
+            <div className="image-placeholder">
+              <FaImage size={48} color="#ccc" />
+              <div>{product.brand || ''} {product.model || product.name || 'Product'}</div>
+            </div>
+          )}
           
           {product.specs && product.specs.gaming && (
             <span className="badge-gaming">Gaming</span>
@@ -34,8 +73,8 @@ const ProductCard = ({ product }) => {
         </div>
         
         <div className="product-info">
-          <div className="product-brand">{product.brand}</div>
-          <h3 className="product-name">{product.model}</h3>
+          <div className="product-brand">{product.brand || 'Unknown Brand'}</div>
+          <h3 className="product-name">{product.model || product.name || 'Unknown Model'}</h3>
           
           <div className="product-specs">
             {product.size && (
@@ -67,4 +106,4 @@ const ProductCard = ({ product }) => {
   );
 };
 
-export default ProductCard;
+export default ProductCard

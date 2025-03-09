@@ -128,3 +128,26 @@
     height: 180px;
   }
 }
+/* Add this to your ProductCard.css file */
+
+.image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--light-gray);
+  color: var(--text-light);
+  text-align: center;
+  padding: var(--spacing-md);
+  font-size: var(--font-size-sm);
+}
+
+.image-placeholder div {
+  margin-top: var(--spacing-sm);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
