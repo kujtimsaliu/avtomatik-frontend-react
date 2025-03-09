@@ -1,0 +1,195 @@
+.filters-container {
+    width: 100%;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .mobile-filter-toggle {
+    display: none;
+    width: 100%;
+    padding: var(--spacing-md);
+    background-color: var(--white);
+    border: var(--border-width-thin) solid var(--gray);
+    border-radius: var(--border-radius-md);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .filters {
+    background-color: var(--white);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .filters-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+    border-bottom: var(--border-width-thin) solid var(--light-gray);
+    padding-bottom: var(--spacing-md);
+  }
+  
+  .filters-header h3 {
+    margin: 0;
+    font-size: var(--font-size-lg);
+  }
+  
+  .close-filters {
+    display: none;
+    background: none;
+    border: none;
+    font-size: var(--font-size-lg);
+    cursor: pointer;
+    color: var(--text-light);
+  }
+  
+  .filter-section {
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .filter-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-sm);
+    cursor: pointer;
+  }
+  
+  .filter-heading h4 {
+    margin: 0;
+    font-size: var(--font-size-md);
+  }
+  
+  .filter-heading svg {
+    transition: transform var(--transition-fast);
+  }
+  
+  .filter-heading svg.expanded {
+    transform: rotate(180deg);
+  }
+  
+  .filter-content {
+    padding-left: var(--spacing-sm);
+  }
+  
+  .filter-group {
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .filter-group label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    font-size: var(--font-size-sm);
+    color: var(--text-light);
+  }
+  
+  .filter-group select,
+  .filter-group input[type="number"],
+  .filter-group input[type="text"] {
+    width: 100%;
+    padding: var(--spacing-sm);
+    border: var(--border-width-thin) solid var(--gray);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-sm);
+  }
+  
+  .range-inputs {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+  
+  .range-inputs input {
+    width: 40%;
+  }
+  
+  .range-inputs span {
+    color: var(--text-light);
+  }
+  
+  .filter-checkbox {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .filter-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-color);
+  }
+  
+  .filters-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+  }
+  
+  .apply-filters {
+    width: 100%;
+  }
+  
+  .clear-filters {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .clear-filters:hover {
+    color: var(--error-color);
+    text-decoration: underline;
+  }
+  
+  .filters-overlay {
+    display: none;
+  }
+  
+  @media (max-width: 768px) {
+    .mobile-filter-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-sm);
+    }
+  
+    .filters {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 350px;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: var(--z-index-modal);
+      transition: right var(--transition-medium);
+      padding: var(--spacing-lg);
+      box-shadow: var(--shadow-lg);
+    }
+  
+    .filters.mobile-open {
+      right: 0;
+    }
+  
+    .close-filters {
+      display: block;
+    }
+  
+    .filters-overlay {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: calc(var(--z-index-modal) - 1);
+    }
+  }

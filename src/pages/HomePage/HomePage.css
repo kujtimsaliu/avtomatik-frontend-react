@@ -1,0 +1,114 @@
+.hero-section {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+    color: var(--white);
+    padding: var(--spacing-xxl) 0;
+    margin-bottom: var(--spacing-xl);
+  }
+  
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .hero-title {
+    font-size: var(--font-size-xxxl);
+    margin-bottom: var(--spacing-md);
+    color: var(--white);
+  }
+  
+  .hero-description {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-xl);
+    opacity: 0.9;
+  }
+  
+  .hero-search-form {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .hero-search-input {
+    width: 100%;
+    padding: var(--spacing-md) var(--spacing-lg);
+    padding-right: 50px;
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-md);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .hero-search-button {
+    position: absolute;
+    right: var(--spacing-sm);
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: var(--font-size-lg);
+    cursor: pointer;
+  }
+  
+  .compare-section {
+    margin-bottom: var(--spacing-xxl);
+  }
+  
+  .info-box {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    background-color: rgba(52, 152, 219, 0.1);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .info-box svg {
+    font-size: var(--font-size-lg);
+    color: var(--primary-color);
+    flex-shrink: 0;
+  }
+  
+  .info-box p {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    color: var(--text-color);
+  }
+  
+  .browse-container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: var(--spacing-xl);
+  }
+  
+  .filters-sidebar {
+    position: sticky;
+    top: calc(var(--header-height) + var(--spacing-md));
+    height: max-content;
+  }
+  
+  @media (max-width: 992px) {
+    .hero-title {
+      font-size: var(--font-size-xxl);
+    }
+    
+    .hero-description {
+      font-size: var(--font-size-md);
+    }
+    
+    .browse-container {
+      grid-template-columns: 1fr;
+    }
+    
+    .filters-sidebar {
+      position: static;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .hero-section {
+      padding: var(--spacing-xl) 0;
+    }
+  }
